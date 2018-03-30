@@ -5,7 +5,7 @@
    partition    ACTIVE   STORAGE ENGINE   (NULL)    GPL
    ```
 2. 特点：数据逻辑表现为一个表，物理存储在多个文件中
-   建表语句
+   - 建表语句
     ```mysql
     CREATE TABLE `customer_login_log` (
    `login_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '登录日志ID',
