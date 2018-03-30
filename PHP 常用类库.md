@@ -1,0 +1,139 @@
+#### 无限极分类
+
+```php
+/**
+ * 无限级分类
+ * @access public 
+ * @param Array $data     //数据库里获取的结果集 
+ * @param Int $pid             
+ * @param Int $count       //第几级分类
+ * @return Array $treeList   
+ */
+class Tool {
+    static public $treeList = array(); 
+    //存放无限分类结果如果一页面有多个无限分类可以使用 Tool::$treeList = array(); 清空
+    static public function tree(&$data,$pid = 0,$count = 1) {
+        foreach ($data as $key => $value){
+            if($value['Pid']==$pid){
+                $value['Count'] = $count;
+                self::$treeList []=$value;
+                unset($data[$key]);
+                self::tree($data,$value['Id'],$count+1);
+            } 
+        }
+        return self::$treeList ;
+    }
+}
+```
+
+
+
+#### 打包下载文件（支持中文名）
+
+```php
+	/** 递归打包文件夹
+     * @param $source
+     * @param $destination
+     * @return bool
+     */
+    function zipDownload($source)
+    {
+        $destination = 'uploads/tmp.zip';   // 临时文件
+        if (!extension_loaded('zip') || !file_exists($source)) {
+            return false;
+        }
+
+        $zip = new \ZipArchive();
+        if (!$zip->open($destination, \ZipArchive::CREATE)) {
+            return false;
+        }
+
+        $source = str_replace('\\', '/', realpath($source));
+
+        if (is_dir($source) === true)
+        {
+            $files = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($source), \RecursiveIteratorIterator::SELF_FIRST);
+
+            foreach ($files as $file)
+            {
+                $file = str_replace('\\', '/', $file);
+                
+                // Ignore "." and ".." folders
+                if( in_array(substr($file, strrpos($file, '/')+1), array('.', '..')) ) continue;
+
+                $file = realpath($file);
+
+                if (is_dir($file) === true)
+                {
+                    $zip->addEmptyDir(str_replace($source . '/', '', $file . '/'));
+                }
+                else if (is_file($file) === true)
+                {
+                    $zip->addFromString(iconv('UTF-8','GBK',str_replace($source . '/', '', $file)), file_get_contents($file));  // 转码，防止windows下文件名乱码
+                }
+            }
+        }
+        else if (is_file($source) === true)
+        {
+            $zip->addFromString(iconv('UTF-8','GBK',basename($source)), file_get_contents($source));  // 转码，防止windows下文件名乱码
+        }
+
+        $zip->close();
+
+		// 开始下载
+        $filePath = "uploads/tmp.zip";
+        $fileDir = "uploads/tmp/";
+        $fileName = "temp.zip";
+
+        $fp=fopen($filePath,"r");
+        $file_size=filesize($filePath);
+		//下载文件需要用到的头
+        Header("Content-type: application/octet-stream");
+        Header("Accept-Ranges: bytes");
+        Header("Accept-Length:".$file_size);
+        Header("Content-Disposition: attachment; filename=".$fileName);
+        $buffer=1024;  //设置一次读取的字节数，每读取一次，就输出数据（即返回给浏览器）
+        $file_count=0; //读取的总字节数
+		//向浏览器返回数据 
+        while(!feof($fp) && $file_count<$file_size){
+            $file_con=fread($fp,$buffer);
+            $file_count+=$buffer;
+            echo $file_con;
+        }
+        fclose($fp);
+
+		//下载完成后删除压缩包，临时文件夹
+        if($file_count >= $file_size)
+        {
+            unlink($filePath);
+            exec("rm -rf ".$fileDir);
+        }
+    }
+```
+
+
+
+#### 已知两地经纬度求距离
+
+```php
+<?php
+/**
+*求两个已知经纬度之间的距离,单位为米
+*@param lng1,lng2 经度
+*@param lat1,lat2 纬度
+*@return float 距离，单位米
+*@author www.phpernote.com
+**/
+function getdistance($lng1,$lat1,$lng2,$lat2){
+	//将角度转为狐度
+	$radLat1=deg2rad($lat1);//deg2rad()函数将角度转换为弧度
+	$radLat2=deg2rad($lat2);
+	$radLng1=deg2rad($lng1);
+	$radLng2=deg2rad($lng2);
+	$a=$radLat1-$radLat2;
+	$b=$radLng1-$radLng2;
+	$s=2*asin(sqrt(pow(sin($a/2),2)+cos($radLat1)*cos($radLat2)*pow(sin($b/2),2)))*6378.137*1000;
+	return $s;
+}
+```
+
