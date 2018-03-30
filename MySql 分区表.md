@@ -28,7 +28,7 @@
 	customer_login_log#P#p2.ibd
 	customer_login_log#P#p3.ibd
 	```
-3. 两个分区方法
+3. 三种分区方法
    1. 按 HASH 分区
       - 特点：根据 MOD(分区键、分区数)的值把数据行存储到表的不同分区中，数据可以平均的分布在各个分区文件中
       - HASH分区的键值必须是一个INT类型的值，或是通过函数可以转为INT类型
@@ -43,23 +43,23 @@
         1. 分区键为日期或时间类型
         2. 所有查询中最好都包括分区键作为筛查条件，避免跨分区扫描数据
         3. 定期按分区范围清理历史数据
-   3. 按 LIST 分区
-      - 特点
-        1. 按分区键取值的列表进行分区
-        2. 各分区的列表值不能重复
-        3. 每一行数据必须能找到对应的分区列表，否则数据插入失败
+   3. 按 LIST 分区
+		- 特点
+			1. 按分区键取值的列表进行分区
+			2. 各分区的列表值不能重复
+			3. 每一行数据必须能找到对应的分区列表，否则数据插入失败
 			```mysql
 			INSERT INTO customer_login_list (customer_id, login_time, login_ip, login_type) VALUES (100, NOW(), 1, 10);
 			// 错误代码：1526
 			// Table has no paritition for value 10
 			```
-      - 建立
-		```mysql
-		PARTITION BY LIST(login_type)(
-			PARITITION p0 VALUES in (1,3,5,7,9),
-			PARITITION p1 VALUES in (2,4,6,8)
-		);    
-		```
+		- 建立
+			```mysql
+			PARTITION BY LIST(login_type)(
+				PARITITION p0 VALUES in (1,3,5,7,9),
+				PARITITION p1 VALUES in (2,4,6,8)
+			);    
+			```
 4. 使用分区表的注意事项
    - 结合业务场景选择分区键，避免跨分区查询
    - 对分区表进行查询最好在 where 从句中包含分区键
