@@ -1,4 +1,4 @@
-#### 无限极分类
+## 无限极分类
 
 ```php
 /**
@@ -28,92 +28,92 @@ class Tool {
 
 
 
-#### 打包下载文件（支持中文名）
+## 打包下载文件（支持中文名）
 
 ```php
-	/** 递归打包文件夹
-     * @param $source
-     * @param $destination
-     * @return bool
-     */
-    function zipDownload($source)
+/** 递归打包文件夹
+ * @param $source
+ * @param $destination
+ * @return bool
+ */
+function zipDownload($source)
+{
+    $destination = 'uploads/tmp.zip';   // 临时文件
+    if (!extension_loaded('zip') || !file_exists($source)) {
+        return false;
+    }
+
+    $zip = new \ZipArchive();
+    if (!$zip->open($destination, \ZipArchive::CREATE)) {
+        return false;
+    }
+
+    $source = str_replace('\\', '/', realpath($source));
+
+    if (is_dir($source) === true)
     {
-        $destination = 'uploads/tmp.zip';   // 临时文件
-        if (!extension_loaded('zip') || !file_exists($source)) {
-            return false;
-        }
+        $files = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($source), \RecursiveIteratorIterator::SELF_FIRST);
 
-        $zip = new \ZipArchive();
-        if (!$zip->open($destination, \ZipArchive::CREATE)) {
-            return false;
-        }
-
-        $source = str_replace('\\', '/', realpath($source));
-
-        if (is_dir($source) === true)
+        foreach ($files as $file)
         {
-            $files = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($source), \RecursiveIteratorIterator::SELF_FIRST);
+            $file = str_replace('\\', '/', $file);
 
-            foreach ($files as $file)
+            // Ignore "." and ".." folders
+            if( in_array(substr($file, strrpos($file, '/')+1), array('.', '..')) ) continue;
+
+            $file = realpath($file);
+
+            if (is_dir($file) === true)
             {
-                $file = str_replace('\\', '/', $file);
-                
-                // Ignore "." and ".." folders
-                if( in_array(substr($file, strrpos($file, '/')+1), array('.', '..')) ) continue;
-
-                $file = realpath($file);
-
-                if (is_dir($file) === true)
-                {
-                    $zip->addEmptyDir(str_replace($source . '/', '', $file . '/'));
-                }
-                else if (is_file($file) === true)
-                {
-                    $zip->addFromString(iconv('UTF-8','GBK',str_replace($source . '/', '', $file)), file_get_contents($file));  // 转码，防止windows下文件名乱码
-                }
+                $zip->addEmptyDir(str_replace($source . '/', '', $file . '/'));
+            }
+            else if (is_file($file) === true)
+            {
+                $zip->addFromString(iconv('UTF-8','GBK',str_replace($source . '/', '', $file)), file_get_contents($file));  // 转码，防止windows下文件名乱码
             }
         }
-        else if (is_file($source) === true)
-        {
-            $zip->addFromString(iconv('UTF-8','GBK',basename($source)), file_get_contents($source));  // 转码，防止windows下文件名乱码
-        }
-
-        $zip->close();
-
-		// 开始下载
-        $filePath = "uploads/tmp.zip";
-        $fileDir = "uploads/tmp/";
-        $fileName = "temp.zip";
-
-        $fp=fopen($filePath,"r");
-        $file_size=filesize($filePath);
-		//下载文件需要用到的头
-        Header("Content-type: application/octet-stream");
-        Header("Accept-Ranges: bytes");
-        Header("Accept-Length:".$file_size);
-        Header("Content-Disposition: attachment; filename=".$fileName);
-        $buffer=1024;  //设置一次读取的字节数，每读取一次，就输出数据（即返回给浏览器）
-        $file_count=0; //读取的总字节数
-		//向浏览器返回数据 
-        while(!feof($fp) && $file_count<$file_size){
-            $file_con=fread($fp,$buffer);
-            $file_count+=$buffer;
-            echo $file_con;
-        }
-        fclose($fp);
-
-		//下载完成后删除压缩包，临时文件夹
-        if($file_count >= $file_size)
-        {
-            unlink($filePath);
-            exec("rm -rf ".$fileDir);
-        }
     }
+    else if (is_file($source) === true)
+    {
+        $zip->addFromString(iconv('UTF-8','GBK',basename($source)), file_get_contents($source));  // 转码，防止windows下文件名乱码
+    }
+
+    $zip->close();
+
+    // 开始下载
+    $filePath = "uploads/tmp.zip";
+    $fileDir = "uploads/tmp/";
+    $fileName = "temp.zip";
+
+    $fp=fopen($filePath,"r");
+    $file_size=filesize($filePath);
+    //下载文件需要用到的头
+    Header("Content-type: application/octet-stream");
+    Header("Accept-Ranges: bytes");
+    Header("Accept-Length:".$file_size);
+    Header("Content-Disposition: attachment; filename=".$fileName);
+    $buffer=1024;  //设置一次读取的字节数，每读取一次，就输出数据（即返回给浏览器）
+    $file_count=0; //读取的总字节数
+    //向浏览器返回数据 
+    while(!feof($fp) && $file_count<$file_size){
+        $file_con=fread($fp,$buffer);
+        $file_count+=$buffer;
+        echo $file_con;
+    }
+    fclose($fp);
+
+    //下载完成后删除压缩包，临时文件夹
+    if($file_count >= $file_size)
+    {
+        unlink($filePath);
+        exec("rm -rf ".$fileDir);
+    }
+}
 ```
 
 
 
-#### 已知两地经纬度求距离
+## 已知两地经纬度求距离
 
 ```php
 <?php
@@ -136,4 +136,3 @@ function getdistance($lng1,$lat1,$lng2,$lat2){
 	return $s;
 }
 ```
-
