@@ -1,5 +1,4 @@
-# technology-notes
-学习和工作中遇到的技术点
+学习和工作中遇到的技术点备忘录
 
 ## PHP
 [PHP 常用类库](https://github.com/Requesponse/technology-notes/blob/master/PHP%20%E5%B8%B8%E7%94%A8%E7%B1%BB%E5%BA%93.md)
