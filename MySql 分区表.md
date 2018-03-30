@@ -49,11 +49,11 @@
         2. 各分区的列表值不能重复
         3. 每一行数据必须能找到对应的分区列表，否则数据插入失败
       - 建立
-	```mysql
-	PARTITION BY LIST(login_type)(
-	PARITITION p0 VALUES in (1,3,5,7,9),
-	PARITITION p1 VALUES in (2,4,6,8)
-	);    
-	```
+		```mysql
+		PARTITION BY LIST(login_type)(
+		PARITITION p0 VALUES in (1,3,5,7,9),
+		PARITITION p1 VALUES in (2,4,6,8)
+		);    
+		```
 
 
