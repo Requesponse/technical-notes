@@ -18,7 +18,7 @@
     PARTITION BY HASH(customer_id)
        PARTITION 4;
     ```
-    - 生成的文件
+   - 生成的文件
 	```shell
 	//mysql建表后自动生成，存储表结构
 	customer_login_log.frm
