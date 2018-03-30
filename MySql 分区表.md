@@ -48,12 +48,21 @@
         1. 按分区键取值的列表进行分区
         2. 各分区的列表值不能重复
         3. 每一行数据必须能找到对应的分区列表，否则数据插入失败
+			```mysql
+			INSERT INTO customer_login_list (customer_id, login_time, login_ip, login_type) VALUES (100, NOW(), 1, 10);
+			// 错误代码：1526
+			// Table has no paritition for value 10
+			```
       - 建立
 		```mysql
 		PARTITION BY LIST(login_type)(
-		PARITITION p0 VALUES in (1,3,5,7,9),
-		PARITITION p1 VALUES in (2,4,6,8)
+			PARITITION p0 VALUES in (1,3,5,7,9),
+			PARITITION p1 VALUES in (2,4,6,8)
 		);    
 		```
+4. 使用分区表的注意事项
+   - 结合业务场景选择分区键，避免跨分区查询
+   - 对分区表进行查询最好在 where 从句中包含分区键
+   - 具有主键或唯一索引的表，主键或唯一索引必须是分区键的一部分
 
 
