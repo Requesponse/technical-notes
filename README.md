@@ -1,7 +1,7 @@
 学习和工作中遇到的技术点备忘录
 
 ## PHP
-[常用类库](https://github.com/Requesponse/technology-notes/blob/master/%E5%B8%B8%E7%94%A8%E7%B1%BB%E5%BA%93.md)
+[常用类库](https://github.com/Requesponse/technical-notes/blob/master/PHP/%E5%B8%B8%E7%94%A8%E7%B1%BB%E5%BA%93.md)
 
 
 
