@@ -18,3 +18,13 @@
     PARTITION BY HASH(customer_id)
        PARTITION 4;
     ```
+    - 生成的文件
+    ```mysql
+    //mysql建表后自动生成，存储表结构
+    customer_login_log.frm
+    //当引擎为 Innodb 生成的文件，并且使用的表空间为“独立表空间”
+    customer_login_log#P#p0.ibd		
+    customer_login_log#P#p1.ibd
+    customer_login_log#P#p2.ibd
+    customer_login_log#P#p3.ibd
+    ```
