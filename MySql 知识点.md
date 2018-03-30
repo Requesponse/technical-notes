@@ -46,8 +46,8 @@ ALTER TABLE userinfo CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 ## case when then 用法
 
-> %d 十进制整数
-> %s 字符串
+> %d: 十进制整数
+> %s: 字符串
 
 ```Php
 $sql = "UPDATE goods_combination SET flash_sale_price = CASE id "; 
@@ -73,13 +73,13 @@ $ds = $college->order(convert("name using gb2312"))->select();
 - TP
 
   ```Php
-  if (!empty($keyword)) $map['username|mobile'] = array('like', "%$keyword%");
+  if (!empty($keyword)) $map['username|mobile'] = array('like', "%$keyword");
   ```
 
 - 原生
 
   ```Mysql
-  SELECT * FROM `magazine` WHERE CONCAT(`title`,`tag`,`description`) LIKE ‘%关键字%’
+  SELECT * FROM `magazine` WHERE CONCAT(`title`,`tag`,`description`) LIKE ‘%关键字’
   ```
 
 
@@ -91,6 +91,6 @@ $ds = $college->order(convert("name using gb2312"))->select();
 
 
 
-##MySql 5.6之前的版本不允许使用2个 timestamp 字段
+## MySql 5.6之前的版本不允许使用2个 timestamp 字段
 
 
