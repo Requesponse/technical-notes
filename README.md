@@ -7,3 +7,5 @@
 
 ## MySql
 [MySql 设计规范](https://github.com/Requesponse/technology-notes/blob/master/MySql%20%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83.md)
+[MySql 知识点](https://github.com/Requesponse/technical-notes/blob/master/MySql%20%E7%9F%A5%E8%AF%86%E7%82%B9.md)
+[MySql 分区表](https://github.com/Requesponse/technical-notes/blob/master/MySql%20%E5%88%86%E5%8C%BA%E8%A1%A8.md)
