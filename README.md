@@ -13,3 +13,4 @@
 
 ## front-end
 - [JQuery 事件委托](https://github.com/Requesponse/technical-notes/blob/master/FRONT-END/JQuery%20%E4%BA%8B%E4%BB%B6%E5%A7%94%E6%89%98.md)
+- [JQuery 文档碎片](https://github.com/Requesponse/technical-notes/blob/master/FRONT-END/JQuery%20%E6%96%87%E6%A1%A3%E7%A2%8E%E7%89%87.md)
