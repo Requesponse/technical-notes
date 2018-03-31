@@ -1,4 +1,4 @@
-### 需求: 往ul里面添加10个li
+### 需求: 往`ul`里面添加10个`li`
 ##### 代码如下: 
 ```javascript
 <!DOCTYPE html>
@@ -24,7 +24,7 @@
 ```
 
 #### 问题：相当于操作了10次DOM，如何优化，减少DOM的操作次数  
-#### 两种解放方案
+#### 两种解决方案
 1. 使用 innerHTML
 ```javascript
 var oUl=document.getElementById("ul-test");
@@ -39,7 +39,8 @@ oUl.innerHTML=_html;
 ```
 2. 使用文档碎片: createDocumentFragment
 ```javascript
-var oUl=document.getElementById("ul-test"),_frag = document.createDocumentFragment();
+var oUl = document.getElementById("ul-test"),
+    _frag = document.createDocumentFragment();
 for(var i=0;i<10;i++){
     var oLi=document.createElement('li');
     oLi.innerHTML=i;
