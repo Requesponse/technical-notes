@@ -12,4 +12,4 @@
 
 
 ## front-end
-- [JQuery 事件委托](https://github.com/Requesponse/technical-notes/blob/master/JQuery/%E4%BA%8B%E4%BB%B6%E5%A7%94%E6%89%98.md)
+- [JQuery 事件委托](https://github.com/Requesponse/technical-notes/blob/master/FRONT-END/JQuery%20%E4%BA%8B%E4%BB%B6%E5%A7%94%E6%89%98.md)
