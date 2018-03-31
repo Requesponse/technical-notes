@@ -11,5 +11,5 @@
 - [分区表](https://github.com/Requesponse/technical-notes/blob/master/SQL/MySql%20%E5%88%86%E5%8C%BA%E8%A1%A8.md)
 
 
-## 前端
+## front-end
 - [JQuery 事件委托](https://github.com/Requesponse/technical-notes/blob/master/JQuery/%E4%BA%8B%E4%BB%B6%E5%A7%94%E6%89%98.md)
