@@ -2,6 +2,7 @@
 
 ## PHP
 - [常用类库](https://github.com/Requesponse/technical-notes/blob/master/PHP/%E5%B8%B8%E7%94%A8%E7%B1%BB%E5%BA%93.md)
+- [static 详解](https://github.com/Requesponse/technical-notes/blob/master/PHP/static%20%E7%BB%86%E8%87%B4%E8%A7%A3%E8%AF%BB.md)
 
 
 
