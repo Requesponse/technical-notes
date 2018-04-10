@@ -93,4 +93,25 @@ $ds = $college->order(convert("name using gb2312"))->select();
 
 ## MySql 5.6之前的版本不允许使用2个 timestamp 字段
 
+## FIND_IN_SET 函数
+```mysql
+在mysql中，有时我们在做数据库查询时，需要得到某字段中包含某个值的记录，但是它也不是用like能解决的，使用like可能查到我们不想要的记录，它比like更精准，这时候mysql的FIND_IN_SET函数就派上用场了，下面来具体了解一下。
 
+FIND_IN_SET(str,strlist)函数
+
+str 要查询的字符串
+
+strlist 字段名 参数以”,”分隔 如 (1,2,6,8)
+
+查询字段(strlist)中包含(str)的结果，返回结果为null或记录
+
+下面举例说明
+
+test表中有如下字段及值
+下面我想查询area中包含”1″这个参数的记录
+SELECT * from test where FIND_IN_SET('1',area)
+
+FIND_IN_SET和like的区别
+
+like是广泛的模糊匹配，字符串中没有分隔符，Find_IN_SET 是精确匹配，字段值以英文”,”分隔，Find_IN_SET查询的结果要小于like查询的结果。
+```
